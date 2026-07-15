@@ -1,4 +1,6 @@
-﻿from django.contrib.auth.models import AbstractUser
+"""Database models for users, publishers, articles, newsletters, and subscriptions."""
+
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
 

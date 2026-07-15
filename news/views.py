@@ -1,4 +1,6 @@
-﻿from django.contrib import messages
+"""Web and API views for registration, publishing, approval, and subscriptions."""
+
+from django.contrib import messages
 from django.contrib.auth import login
 from django.shortcuts import get_object_or_404, redirect, render
 

@@ -1,0 +1,24 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+<h2>Articles Waiting for Approval</h2>
+
+{% if articles %}
+    <ul>
+        {% for article in articles %}
+            <li>
+                <strong>{{ article.title }}</strong>
+                by {{ article.author.username }}
+
+                <br>
+
+                <a class="button" href="{% url 'approve_article' article.id %}">
+                    Review and Approve
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>There are no articles waiting for approval.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Review Articles</title>
+</head>
+<body>
+    <h1>Articles Pending Review</h1>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'article_list' %}">All Articles</a> |
+        <a href="{% url 'publisher_list' %}">Publishers</a> |
+        <a href="{% url 'newsletter_list' %}">Newsletters</a>
+    </nav>
+
+    <hr>
+
+    {% if articles %}
+        {% for article in articles %}
+            <h2>
+                <a href="{% url 'article_detail' article.id %}">
+                    {{ article.title }}
+                </a>
+            </h2>
+
+            <p>{{ article.content|truncatewords:60 }}</p>
+
+            <p>
+                Author: {{ article.author.username }}
+                {% if article.publisher %}
+                    | Publisher: {{ article.publisher.name }}
+                {% endif %}
+                | Approved: {{ article.approved }}
+                | Rejected: {{ article.rejected }}
+            </p>
+
+            <p>
+                API approve link:
+                <a href="/api/articles/{{ article.id }}/approve/">
+                    /api/articles/{{ article.id }}/approve/
+                </a>
+            </p>
+
+            <p>
+                API reject link:
+                <a href="/api/articles/{{ article.id }}/reject/">
+                    /api/articles/{{ article.id }}/reject/
+                </a>
+            </p>
+
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No articles are waiting for review.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,80 @@
+{% extends "shop/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<p>Welcome, <strong>{{ request.user.username }}</strong>.</p>
+
+{% if role == "vendor" %}
+
+    <h3>Vendor Dashboard</h3>
+
+    <div class="mb-3">
+        <a href="{% url 'create_store' %}" class="btn btn-primary">Create Store</a>
+        <a href="{% url 'create_product' %}" class="btn btn-success">Create Product</a>
+        <a href="{% url 'my_stores' %}" class="btn btn-secondary">My Stores</a>
+    </div>
+
+    <h4>Your Stores</h4>
+
+    {% if stores %}
+        <ul class="list-group mb-4">
+            {% for store in stores %}
+                <li class="list-group-item">
+                    <strong>{{ store.name }}</strong><br>
+                    {{ store.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not created stores yet.</p>
+    {% endif %}
+
+    <h4>Your Products</h4>
+
+    {% if products %}
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item">
+                    <strong>{{ product.name }}</strong> - R{{ product.price }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not created products yet.</p>
+    {% endif %}
+
+{% elif role == "buyer" %}
+
+    <h3>Buyer Dashboard</h3>
+
+    <a href="{% url 'product_list' %}" class="btn btn-primary mb-3">
+        Browse Products
+    </a>
+
+    <h4>Your Reviews</h4>
+
+    {% if reviews %}
+        <ul class="list-group">
+            {% for review in reviews %}
+                <li class="list-group-item">
+                    <strong>{{ review.product.name }}</strong><br>
+                    Rating: {{ review.rating }}/5<br>
+                    {{ review.comment }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not reviewed any products yet.</p>
+    {% endif %}
+
+{% else %}
+
+    <p>Your account does not have a role yet.</p>
+
+{% endif %}
+
+{% endblock %}

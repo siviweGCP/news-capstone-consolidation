@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Create Store</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Store Name</label>
+            <input
+                type="text"
+                name="name"
+                id="name"
+                class="form-control"
+                required
+            >
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Store Description</label>
+            <textarea
+                name="description"
+                id="description"
+                class="form-control"
+                rows="4"
+                required
+            ></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="logo" class="form-label">Store Logo</label>
+            <input
+                type="file"
+                name="logo"
+                id="logo"
+                class="form-control"
+            >
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Create Store
+        </button>
+
+        <a href="{% url 'shop:vendor_dashboard' %}" class="btn btn-secondary">
+            Cancel
+        </a>
+    </form>
+</div>
+{% endblock %}

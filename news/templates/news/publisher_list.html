@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Publishers</title>
+</head>
+<body>
+    <h1>Publishers</h1>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'article_list' %}">Articles</a> |
+        <a href="{% url 'newsletter_list' %}">Newsletters</a>
+    </nav>
+
+    <hr>
+
+    {% if publishers %}
+        {% for publisher in publishers %}
+            <h2>{{ publisher.name }}</h2>
+            <p>{{ publisher.description }}</p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No publishers found.</p>
+    {% endif %}
+</body>
+</html>

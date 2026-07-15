@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>News Application</title>
+</head>
+<body>
+    <h1>Welcome to the News Application</h1>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'article_list' %}">Articles</a> |
+        <a href="{% url 'publisher_list' %}">Publishers</a> |
+        <a href="{% url 'newsletter_list' %}">Newsletters</a> |
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'register' %}">Register</a> |
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+
+    <hr>
+
+    {% if user.is_authenticated %}
+        <p>You are logged in as {{ user.username }}.</p>
+    {% endif %}
+
+    <h2>Approved Articles</h2>
+
+    {% if articles %}
+        {% for article in articles %}
+            <hr>
+            <h3>
+                <a href="{% url 'article_detail' article.id %}">
+                    {{ article.title }}
+                </a>
+            </h3>
+            <p>{{ article.content|truncatewords:40 }}</p>
+            <p>
+                Author: {{ article.author.username }}
+                {% if article.publisher %}
+                    | Publisher: {{ article.publisher.name }}
+                {% endif %}
+            </p>
+        {% endfor %}
+    {% else %}
+        <p>No approved articles yet.</p>
+    {% endif %}
+
+    <h2>API Links</h2>
+
+    <ul>
+        <li><a href="/api/">API Home</a></li>
+        <li><a href="/api/articles/">Articles API</a></li>
+        <li><a href="/api/publishers/">Publishers API</a></li>
+        <li><a href="/api/newsletters/">Newsletters API</a></li>
+        <li><a href="/api/approved/">Approved Articles API</a></li>
+    </ul>
+</body>
+</html>

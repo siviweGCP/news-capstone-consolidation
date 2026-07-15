@@ -1,0 +1,27 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+<h2>{{ newsletter.title }}</h2>
+
+<p>
+    <strong>Author:</strong> {{ newsletter.author.username }}
+</p>
+
+<p>
+    <strong>Created:</strong> {{ newsletter.created_at }}
+</p>
+
+<p>{{ newsletter.description }}</p>
+
+<h3>Articles in this Newsletter</h3>
+
+{% if newsletter.articles.all %}
+    <ul>
+        {% for article in newsletter.articles.all %}
+            <li>{{ article.title }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>This newsletter does not have articles yet.</p>
+{% endif %}
+{% endblock %}

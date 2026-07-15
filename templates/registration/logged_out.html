@@ -1,0 +1,13 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+
+<section>
+    <h2>Logged Out</h2>
+
+    <p>You have been logged out successfully.</p>
+
+    <a href="{% url 'login' %}">Login again</a>
+</section>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Vendor Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Vendor Dashboard</h1>
+
+    <p>Welcome, {{ request.user.username }}.</p>
+
+    <div class="mb-3">
+        <a href="{% url 'create_store' %}" class="btn btn-primary">
+            Create Store
+        </a>
+
+        <a href="{% url 'store_list' %}" class="btn btn-secondary">
+            View Stores
+        </a>
+
+        <a href="{% url 'product_list' %}" class="btn btn-secondary">
+            View Products
+        </a>
+    </div>
+
+    {% if stores %}
+        <h2>Your Stores</h2>
+
+        <div class="row">
+            {% for store in stores %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        {% if store.logo %}
+                            <img src="{{ store.logo.url }}" class="card-img-top" alt="{{ store.name }}">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ store.name }}</h5>
+                            <p class="card-text">{{ store.description }}</p>
+
+                            <a href="{% url 'store_detail' store.id %}" class="btn btn-info">
+                                View Store
+                            </a>
+
+                            <a href="{% url 'create_product' store.id %}" class="btn btn-success">
+                                Add Product
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have not created any stores yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

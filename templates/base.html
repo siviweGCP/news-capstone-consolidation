@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django eCommerce</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 15px 30px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .messages {
+            width: 90%;
+            max-width: 1100px;
+            margin: 20px auto 0 auto;
+        }
+
+        .message {
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #e8f4ff;
+            border: 1px solid #b8dcff;
+        }
+
+        .success {
+            background-color: #e8f7e8;
+            border-color: #9ed29e;
+        }
+
+        .error {
+            background-color: #ffe8e8;
+            border-color: #e0a0a0;
+        }
+
+        .warning {
+            background-color: #fff8dd;
+            border-color: #e5cf7a;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: #198754;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+        }
+
+        textarea {
+            min-height: 120px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            background-color: #fafafa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="brand">
+                <a href="{% url 'shop:home' %}">Django eCommerce</a>
+            </div>
+
+            <div>
+                <a href="{% url 'shop:home' %}">Home</a>
+                <a href="{% url 'shop:store_list' %}">Stores</a>
+                <a href="{% url 'shop:product_list' %}">Products</a>
+
+                {% if user.is_authenticated %}
+                    {% if user.groups.all %}
+                        <a href="{% url 'shop:buyer_dashboard' %}">Buyer Dashboard</a>
+                        <a href="{% url 'shop:vendor_dashboard' %}">Vendor Dashboard</a>
+                    {% endif %}
+
+                    <a href="{% url 'shop:create_store' %}">Create Store</a>
+                    <a href="{% url 'shop:logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'shop:login' %}">Login</a>
+                    <a href="{% url 'shop:register' %}">Register</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Django eCommerce Application</p>
+    </footer>
+</body>
+</html>

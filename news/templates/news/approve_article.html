@@ -1,0 +1,31 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+<h2>Approve Article</h2>
+
+<p>
+    <strong>Title:</strong> {{ article.title }}
+</p>
+
+<p>
+    <strong>Author:</strong> {{ article.author.username }}
+</p>
+
+<p>
+    <strong>Publisher:</strong>
+    {% if article.publisher %}
+        {{ article.publisher.name }}
+    {% else %}
+        Independent
+    {% endif %}
+</p>
+
+<hr>
+
+<p>{{ article.content }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button class="button" type="submit">Approve Article</button>
+</form>
+{% endblock %}

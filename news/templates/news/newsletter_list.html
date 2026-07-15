@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Newsletters</title>
+</head>
+<body>
+    <h1>Newsletters</h1>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'article_list' %}">Articles</a> |
+        <a href="{% url 'publisher_list' %}">Publishers</a>
+    </nav>
+
+    <hr>
+
+    {% if newsletters %}
+        {% for newsletter in newsletters %}
+            <h2>{{ newsletter.title }}</h2>
+            <p>{{ newsletter.description }}</p>
+
+            {% if newsletter.articles.all %}
+                <h3>Articles</h3>
+                <ul>
+                    {% for article in newsletter.articles.all %}
+                        <li>
+                            <a href="{% url 'article_detail' article.id %}">
+                                {{ article.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No newsletters found.</p>
+    {% endif %}
+</body>
+</html>

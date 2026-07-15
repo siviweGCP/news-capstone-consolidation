@@ -36,3 +36,4 @@ capstone_consolidation_log.txt
 # SQLite database files
 *.sqlite3
 *.sqlite3-journal
+*.pyc
